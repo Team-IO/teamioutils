@@ -1,0 +1,16 @@
+[
+{
+  "modid": "teamioutils",
+  "name": "Team-IO Utils Mod",
+  "description": "Team-IO Utils Mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Xanderio"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
