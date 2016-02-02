@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class TeamIOUtilsMain
 {
 
-	@SidedProxy(clientSide="net.teamio.teamioutils.client.ClientProxy", serverSide="net.teamio.teamioutils.CommonProxy")
+	@SidedProxy(clientSide="net.teamio.teamioutils.ClientProxy", serverSide="net.teamio.teamioutils.CommonProxy")
 	public static CommonProxy proxy;
 	
 	public static Hammer itemHammer;
@@ -40,6 +40,8 @@ public class TeamIOUtilsMain
 				return null;
 			}
 		};
+		
+		
 		
 		Hammer itemHammer = new Hammer();
 		itemHammer.setCreativeTab(creativeTab);
