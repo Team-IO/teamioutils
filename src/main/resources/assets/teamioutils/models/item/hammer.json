@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "all": "teamioutils:items/hammer"
+        "layer0": "teamioutils:items/hammer"
     },
     "display": {
         "thirdperson": {
