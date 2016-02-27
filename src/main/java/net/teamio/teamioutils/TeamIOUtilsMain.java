@@ -16,7 +16,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 public class TeamIOUtilsMain
 {
 
-	@SidedProxy(clientSide="net.teamio.teamioutils.ClientOnlyProxy", serverSide="net.teamio.teamioutils.CommonProxy")
+	@SidedProxy(clientSide="net.teamio.teamioutils.ClientOnlyProxy", serverSide="net.teamio.teamioutils.DedicatedServerProxy")
 	public static CommonProxy proxy;
 	
 	public static Hammer itemHammer;
