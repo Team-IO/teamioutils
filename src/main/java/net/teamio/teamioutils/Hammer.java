@@ -25,7 +25,7 @@ public class Hammer extends ItemTool {
 
 	private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] { Blocks.dirt,Blocks.grass, Blocks.gravel, Blocks.coal_ore, Blocks.cobblestone, Blocks.diamond_block, Blocks.diamond_ore, Blocks.double_stone_slab, Blocks.gold_block, Blocks.gold_ore, Blocks.ice, Blocks.iron_block, Blocks.iron_ore, Blocks.lapis_block, Blocks.lapis_ore, Blocks.lit_redstone_ore, Blocks.mossy_cobblestone, Blocks.netherrack, Blocks.redstone_ore, Blocks.sandstone, Blocks.red_sandstone, Blocks.stone, Blocks.stone_slab, Blocks.nether_brick, Blocks.nether_brick_fence, Blocks.nether_brick_stairs});
 	private final float efficiencyOnProperMaterial = Float.MAX_VALUE;
-	private boolean bigTime = false;
+	private boolean bigTime = true;
 	
 	public Hammer(){
 		super(2f, Item.ToolMaterial.EMERALD, EFFECTIVE_ON);
@@ -163,8 +163,11 @@ public class Hammer extends ItemTool {
 			{
 				for (int zPos = pos.getZ() - zMin; zPos <= pos.getZ() + zMax; zPos++)
 				{
+					if(!(Block.isEqualTo(player.getEntityWorld().getBlockState(pos).getBlock(), Blocks.bedrock)))
+					{
 					BlockPos blockPos = new BlockPos(xPos, yPos, zPos);
 					player.getEntityWorld().destroyBlock(blockPos, true);
+					}
 				}
 			}
 		}
