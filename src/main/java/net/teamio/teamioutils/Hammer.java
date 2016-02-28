@@ -28,6 +28,7 @@ public class Hammer extends ItemTool {
 
 	private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(new Block[] { Blocks.dirt,Blocks.grass, Blocks.gravel, Blocks.coal_ore, Blocks.cobblestone, Blocks.diamond_block, Blocks.diamond_ore, Blocks.double_stone_slab, Blocks.gold_block, Blocks.gold_ore, Blocks.ice, Blocks.iron_block, Blocks.iron_ore, Blocks.lapis_block, Blocks.lapis_ore, Blocks.lit_redstone_ore, Blocks.mossy_cobblestone, Blocks.netherrack, Blocks.redstone_ore, Blocks.sandstone, Blocks.red_sandstone, Blocks.stone, Blocks.stone_slab, Blocks.nether_brick, Blocks.nether_brick_fence, Blocks.nether_brick_stairs});
 	private final float efficiencyOnProperMaterial = Float.MAX_VALUE;
+	private boolean bigTime = false;
 	
 	public Hammer(){
 		super(2f, Item.ToolMaterial.EMERALD, EFFECTIVE_ON);
@@ -40,21 +41,43 @@ public class Hammer extends ItemTool {
 		}
 	
 	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+	public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
 	{
-        return false;
+		if(playerIn.isSneaking())
+		{
+			updateGhostBlocks(playerIn, worldIn);
+		}else{
+			if(worldIn.isRemote)
+			{
+			if(bigTime)
+			{
+				playerIn.addChatComponentMessage(new ChatComponentTranslation("msg.big_time.true.txt"));
+				bigTime = false;
+				}else{
+				playerIn.addChatComponentMessage(new ChatComponentTranslation("msg.big_time.false.txt"));
+				bigTime = true;
+				}
+			}
+		}
+		return itemStackIn;
     }
 	
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn)	
 	{
+		if (bigTime)
+		{
 		EntityPlayer player = (EntityPlayer) playerIn;
-	return breakAOEBlocks(stack, pos, 1, 1, player);
+		return breakAOEBlocks(stack, pos,1, 0, player);
+		}else{
+			return true;
+		}
+			
 	}
 	@Override
 	public boolean canHarvestBlock(Block block)
 	{
-		return true;
+		return block.getBlockState().getBlock().hasTileEntity(block.getBlockState().getBaseState())? false: true;
 	}
 
 	public boolean breakAOEBlocks(ItemStack stack, BlockPos pos, int breakRadius, int breakDepth, EntityPlayer player)
@@ -62,6 +85,10 @@ public class Hammer extends ItemTool {
 		//Map<Block, Integer> blockMap =  new HashMap<Block, Integer>();
 		//Block block = player.worldObj.getBlockState(pos).getBlock();
 		//IBlockState meta = player.worldObj.getBlockState(pos);
+		if(player.getEntityWorld().isRemote)
+		{
+			return false;
+		}
 		MovingObjectPosition mop = raytraceFromEntity(player.worldObj, player, 4.5d);
 		if(mop == null)
 		{
@@ -124,7 +151,7 @@ public class Hammer extends ItemTool {
 					BlockPos currentBlock = new BlockPos(xPos, yPos, zPos);
 					if (player.worldObj.getBlockState(currentBlock).getBlock().hasTileEntity(player.worldObj.getBlockState(currentBlock))) {
 						if (player.worldObj.isRemote) {
-							player.addChatComponentMessage(new ChatComponentTranslation("msg.de.baseSafeAOW.txt"));
+							player.addChatComponentMessage(new ChatComponentTranslation("msg.baseSafeAOW.txt"));
 						}
 						else ((EntityPlayerMP)player).playerNetServerHandler.sendPacket(new S23PacketBlockChange(player.worldObj,currentBlock));
 						return true;

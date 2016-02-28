@@ -1,1 +1,5 @@
 item.hammer.name=Hammer
+
+msg.big_time.true.txt=small time
+msg.big_time.false.txt=BIG TIME
+msg.baseSafeAOW.txt=I'm don't know if you want to do that.
