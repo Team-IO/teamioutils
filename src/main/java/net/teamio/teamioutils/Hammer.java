@@ -1,7 +1,5 @@
 package net.teamio.teamioutils;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
@@ -18,7 +16,6 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.network.play.server.S23PacketBlockChange;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
@@ -37,7 +34,6 @@ public class Hammer extends ItemTool {
 		this.setNoRepair();
 		this.setHarvestLevel("Diamond", Integer.MAX_VALUE);
 		this.isDamageable();
-		this.isFull3D();
 		}
 	
 	@Override
