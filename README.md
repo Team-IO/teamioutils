@@ -12,7 +12,7 @@ If you want to contribute, you can do so [by reporting bugs](https://github.com/
 You are also welcome to [support us on Patreon](https://www.patreon.com/Team_IO?ty=h)!
 
 ## Building the mod
-Taam uses a fairly simple implementation of ForgeGradle. To build a ready-to-use jar, you can use the gradle wrapper delivered with the rest of the source code.  
+TeamIOUtils uses a fairly simple implementation of ForgeGradle. To build a ready-to-use jar, you can use the gradle wrapper delivered with the rest of the source code.  
 For Windows systems, run this in the console:
 
     gradlew.bat build
